@@ -16,8 +16,8 @@ class KerasDenseClassifier(EnsembleModels):
         'output_node_activation': 'sigmoid',
         'learning_rate': 1e-3,
         'num_dense_layers': 3,
-        'dense_shape': 10,
-        'early_patience': 10,
+        'dense_shape': 30,
+        'early_patience': 5,
     }
 
     def __init__(self):
@@ -57,10 +57,10 @@ class KerasDenseClassifier(EnsembleModels):
         Обучение модели
         :return: Обученная модель, Скор
         """
-        model.fit(x=x_train, y=y_train, batch_size=128, epochs=100,
+        model.fit(x=x_train, y=y_train, batch_size=512, epochs=100,
                   validation_data=(x_test, y_test), callbacks=self.callbacks, verbose=0)
 
-        return model, model.evaluate(x=x_test, y=y_test, batch_size=128, verbose=0)[1]
+        return model, model.evaluate(x=x_test, y=y_test, batch_size=128, verbose=1)[1]
 
     def __save_model(self, model, path: str):
         """
