@@ -1,5 +1,6 @@
 import numpy as np
 import keras.backend as K
+from sklearn.metrics import roc_auc_score
 
 
 def smape(satellite_predicted_values: np.array, satellite_true_values: np.array) -> float:
@@ -33,3 +34,16 @@ def smape_loss():
                             / (K.abs(satellite_predicted_values) + K.abs(satellite_true_values))))
 
     return loss
+
+def roc_auc_score_at_K(predicted_proba, target, rate=0.1): 
+	"""
+	Area under the ROC curve between the predicted probability and the observed target.
+	The area under the ROC curve will be calculated only on the top 10 percent of predictions sorted descendingly.
+	:param predicted_proba: предсказанное значение
+    :param target: истинное значение
+    :param rate: процент меток
+	:return: roc auc score at k
+	"""
+	order = np.argsort(-predicted_proba) 
+	top_k = int(rate ∗ len(predicted_proba)) 
+	return roc_auc_score(target[order][:top_k], predicted_proba[order][:top_k])
