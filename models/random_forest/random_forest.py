@@ -19,7 +19,7 @@ class RandomForest(Model):
     }
 
     def __init__(self):
-        super().__init__("svm")
+        super().__init__("random_forest")
 
     def create_model(self, parameters: dict):
         """

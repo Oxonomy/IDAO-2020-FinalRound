@@ -19,7 +19,7 @@ class SVMR(Model):
     }
 
     def __init__(self):
-        super().__init__("svm")
+        super().__init__("svm_regression")
 
     def create_model(self, parameters: dict):
         """
