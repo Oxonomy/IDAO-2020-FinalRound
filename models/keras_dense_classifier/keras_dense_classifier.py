@@ -57,7 +57,7 @@ class KerasDenseClassifier(EnsembleModels):
         Обучение модели
         :return: Обученная модель, Скор
         """
-        model.fit(x=x_train, y=y_train, batch_size=512, epochs=1000,
+        model.fit(x=x_train, y=y_train, batch_size=512, epochs=100,
                   validation_data=(x_test, y_test), callbacks=self.callbacks, verbose=1)
 
         return model, model.evaluate(x=x_test, y=y_test, batch_size=128, verbose=1)[1]
@@ -126,4 +126,5 @@ class KerasDenseClassifier(EnsembleModels):
         if os.path.exists(folder_path):
             self.models = []
             for path in os.listdir(folder_path):
+                path = os.path.join(folder_path, path)
                 self.models.append(self.__load_model(path))

@@ -16,9 +16,9 @@ def get_all_file_paths(directory):
 def main():
     file_paths = []
     file_paths += get_all_file_paths('utils')
-    file_paths += get_all_file_paths('preprocessing')
-    file_paths += get_all_file_paths('pickle_data')
-    file_paths += ['Makefile', 'main.sh', 'main.py', 'LinearRegressionModel.py', 'config.json', 'config.py', 'test.sh', 'test.py']
+    file_paths += get_all_file_paths('pipeline')
+    file_paths += get_all_file_paths('models')
+    file_paths += ['Makefile', 'main.sh', 'main.py', 'LinearRegressionModel.py', 'config.json', 'config.py', 'main_kirill.py']
 
     for file_name in file_paths:
         print(file_name)
