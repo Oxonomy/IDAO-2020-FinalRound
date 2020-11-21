@@ -44,7 +44,7 @@ df = df[['inquiry_1_week', 'channel_name_2_cat_5', 'channel_name_modified_2018_c
 X = df.to_numpy()
 kds = KDC()
 kds.load_ensemble()
-y = kds.predict(X)
+y = (kds.predict(X) > 0.5) * 1.0
 
 prediction["target"] = y
 prediction.to_csv("prediction.csv", index=False)

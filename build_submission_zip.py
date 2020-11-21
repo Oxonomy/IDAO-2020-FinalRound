@@ -18,7 +18,7 @@ def main():
     file_paths += get_all_file_paths('utils')
     file_paths += get_all_file_paths('pipeline')
     file_paths += get_all_file_paths('models')
-    file_paths += ['Makefile', 'main.sh', 'main.py', 'LinearRegressionModel.py', 'config.json', 'config.py', 'main_kirill.py']
+    file_paths += ['Makefile', 'main.sh', 'main.py', 'config.json', 'config.py', 'main_kirill.py']
 
     for file_name in file_paths:
         print(file_name)
