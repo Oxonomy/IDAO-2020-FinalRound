@@ -180,9 +180,7 @@ class Model:
         :param extra_name: Название модели
         """
         folder_path = os.path.join("models", self.model_name, "saved_models")
-        if os.path.exists(folder_path):
-            for path in os.listdir(folder_path):
-                self.model = self.__load_model(os.path.join(path, extra_name))
+        self.model = self.__load_model(os.path.join(folder_path, extra_name))
 
     def predict(self, x) -> np.array:
         return self.model.predict(x).reshape((-1,1))

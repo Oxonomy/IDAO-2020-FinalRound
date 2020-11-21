@@ -1,10 +1,7 @@
 import os
 import keras as k
 import numpy as np
-import pandas as pd
-from joblib import dump, load
-from sklearn import svm, metrics
-from sklearn.model_selection import train_test_split, RepeatedKFold
+from sklearn.model_selection import RepeatedKFold
 
 import config as c
 from pipeline.model import EnsembleModels
