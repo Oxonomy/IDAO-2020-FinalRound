@@ -38,7 +38,7 @@ class KerasDenseClassifier(EnsembleModels):
 
         opt = k.optimizers.Adam(learning_rate=parameters['learning_rate'])
         model.compile(optimizer=opt,
-                      loss='mean_squared_error',
+                      loss='binary_crossentropy',
                       metrics=['accuracy'])
 
         self.callbacks = []
@@ -57,8 +57,8 @@ class KerasDenseClassifier(EnsembleModels):
         Обучение модели
         :return: Обученная модель, Скор
         """
-        model.fit(x=x_train, y=y_train, batch_size=512, epochs=100,
-                  validation_data=(x_test, y_test), callbacks=self.callbacks, verbose=0)
+        model.fit(x=x_train, y=y_train, batch_size=512, epochs=1000,
+                  validation_data=(x_test, y_test), callbacks=self.callbacks, verbose=1)
 
         return model, model.evaluate(x=x_test, y=y_test, batch_size=128, verbose=1)[1]
 
