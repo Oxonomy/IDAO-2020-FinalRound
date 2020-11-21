@@ -23,7 +23,7 @@ class CatboostClassifier(Model):
     }
 
     def __init__(self):
-        super().__init__("svm")
+        super().__init__("catboost")
 
     def create_model(self, parameters: dict):
         """
