@@ -1,13 +1,8 @@
-import os
-import numpy as np
-import pandas as pd
-from joblib import dump, load
 from catboost import CatBoostRegressor
-from sklearn import metrics
 from sklearn.model_selection import train_test_split
 
 import config as c
-from pipeline.model import EnsembleModels, Model
+from pipeline.model import Model
 from utils.metrics import roc_auc_score_at_K
 from utils.preprocess import reset_averages
 

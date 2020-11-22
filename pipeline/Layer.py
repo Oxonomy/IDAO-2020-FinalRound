@@ -1,3 +1,6 @@
+import os
+from joblib import dump, load
+
 import numpy as np
 from sklearn.metrics import mean_squared_error
 
@@ -24,3 +27,9 @@ class Layer:
         for model in self.models:
             model.create_model(model.default_model_constructor_parameters)
             model.fit_model(x, y, test_size=0)
+
+    def save(self, path="main"):
+        dump(self.models, os.path.join('pipeline', path+'.joblib'))
+
+    def load(self, path="main"):
+        self.models=load(os.path.join('pipeline', path+'.joblib'))
