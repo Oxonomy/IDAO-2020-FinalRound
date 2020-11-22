@@ -1,6 +1,7 @@
 import pandas as pd
-from models.linear_regression.linear_regression import LinearRegression as LR
-from utils.preprocess import preprocess
+from joblib import dump, load
+from catboost import CatBoostRegressor, CatBoostClassifier
+from utils.preprocess import preprocess, reset_averages
 import numpy as np
 
 print("LL")
@@ -9,12 +10,10 @@ prediction = df[["card_id"]].copy(deep=True)
 
 
 df = preprocess(df, False)
-lr = LR()
-lr.load_model()
+model = load('best_catboost.joblib')
 
-X = df[df.columns[-171:-133]].to_numpy()
-prediction["target"] = lr.predict(X).reshape(-1)
+
+X = df[df.columns[1:]].to_numpy()
+prediction["target"] = reset_averages(model.predict(X))
 prediction.to_csv("prediction.csv", index=False)
 print(len(prediction))
-
-test = pd.read_csv("test.csv")

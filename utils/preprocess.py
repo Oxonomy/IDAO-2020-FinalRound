@@ -39,3 +39,10 @@ def add_columns(df: pd.DataFrame):
     df['t_4'] = (df['app_addr_region_sale_encoding2'] + df['app_addr_region_sale_encoding1'])
     df['notnull'] = pd.np.sum(df.notnull().to_numpy(), axis=1)
     return df
+
+
+def reset_averages(predict):
+    order = pd.np.argsort(-predict)
+    top_k = int(0.05 * len(predict))
+    predict[(predict < predict[order][top_k]) & (predict > predict[order][-top_k])] = -1
+    return predict
