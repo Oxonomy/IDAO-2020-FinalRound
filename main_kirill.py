@@ -7,12 +7,13 @@ print("LL")
 df = pd.read_csv('test.csv', sep=',')
 prediction = df[["card_id"]].copy(deep=True)
 
-df = preprocess(df)
+
+df = preprocess(df, False)
 lr = LR()
 lr.load_model()
 
-X = df[df.columns[-171:]].to_numpy()
-prediction["target"] = lr.predict(X)
+X = df[df.columns[-171:-133]].to_numpy()
+prediction["target"] = lr.predict(X).reshape(-1)
 prediction.to_csv("prediction.csv", index=False)
 print(len(prediction))
 

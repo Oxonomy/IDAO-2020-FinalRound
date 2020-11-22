@@ -14,8 +14,28 @@ def preprocess(df: pd.DataFrame, is_train=True):
         columns_dict = load('columns_dict.joblib')
         for feature in columns_dict.keys():
             for v in columns_dict[feature]:
-                df[feature+'_'+v] = df[feature]==v
-            df=df.drop([feature], axis=1)
+                df[feature + '_' + v] = df[feature] == v
+            df = df.drop([feature], axis=1)
 
     df = df.fillna(0)
+    return df
+
+
+def add_columns(df: pd.DataFrame):
+    df['addr_region_fact_encoding2'] = (df['addr_region_fact_encoding2'] * 11).round(0).astype(int)
+    df['addr_region_fact_encoding1'] = (df['addr_region_fact_encoding1'] * 83).round(0).astype(int)
+    df['addr_region_reg_encoding1'] = (df['addr_region_reg_encoding1'] * 83).round(0).astype(int)
+    df['addr_region_reg_encoding2'] = (df['addr_region_reg_encoding2'] * 11).round(0).astype(int)
+    df['app_addr_region_reg_encoding2'] = (df['app_addr_region_reg_encoding2'] * 11).round(0).astype(int)
+    df['app_addr_region_reg_encoding1'] = (df['app_addr_region_reg_encoding1'] * 83).round(0).astype(int)
+    df['app_addr_region_fact_encoding1'] = (df['app_addr_region_fact_encoding1'] * 83).round(0).astype(int)
+    df['app_addr_region_fact_encoding2'] = (df['app_addr_region_fact_encoding2'] * 11).round(0).astype(int)
+    df['app_addr_region_sale_encoding1'] = (df['app_addr_region_sale_encoding1'] * 39).round(0).astype(int)
+    df['app_addr_region_sale_encoding2'] = (df['app_addr_region_sale_encoding2'] * 7).round(0).astype(int)
+    df['t_0'] = (df['addr_region_fact_encoding1'] + df['addr_region_fact_encoding2'])
+    df['t_1'] = (df['addr_region_reg_encoding1'] + df['addr_region_reg_encoding2'])
+    df['t_2'] = (df['app_addr_region_reg_encoding2'] + df['app_addr_region_reg_encoding1'])
+    df['t_3'] = (df['app_addr_region_fact_encoding2'] + df['app_addr_region_fact_encoding1'])
+    df['t_4'] = (df['app_addr_region_sale_encoding2'] + df['app_addr_region_sale_encoding1'])
+    df['notnull'] = pd.np.sum(df.notnull().to_numpy(), axis=1)
     return df
