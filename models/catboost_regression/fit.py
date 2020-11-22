@@ -31,7 +31,6 @@ warnings.filterwarnings('ignore')
 
 df = pd.read_csv('train.csv', sep=',')
 pd.set_option('display.max_columns', 500)
-#df = add_columns(df)
 df = preprocess(df)
 
 X = df[df.columns[2:]].to_numpy()
