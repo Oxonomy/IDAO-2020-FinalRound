@@ -18,7 +18,7 @@ def main():
     file_paths += get_all_file_paths('utils')
     file_paths += get_all_file_paths('pipeline')
     file_paths += get_all_file_paths('models')
-    file_paths += ['Makefile', 'main.sh', 'main.py', 'config.json', 'config.py', 'main_kirill.py', 'columns_dict.joblib', 'best_catboost.joblib']
+    file_paths += ['Makefile', 'main.sh', 'main.py', 'config.json', 'config.py', 'main_kirill.py', 'columns_dict.joblib']
 
     for file_name in file_paths:
         print(file_name)

@@ -40,6 +40,14 @@ def add_columns(df: pd.DataFrame):
     df['t_2'] = (df['app_addr_region_reg_encoding2'] + df['app_addr_region_reg_encoding1'])
     df['t_3'] = (df['app_addr_region_fact_encoding2'] + df['app_addr_region_fact_encoding1'])
     df['t_4'] = (df['app_addr_region_sale_encoding2'] + df['app_addr_region_sale_encoding1'])
+    df['t_0=t_1'] = (df['t_0'] != df['t_1']) * 1
+    df['t_2=t_3'] = (df['t_2'] != df['t_3']) * 1
+    df['t_0=t_3'] = (df['t_0'] != df['t_3']) * 1
+    df['t_4_2000'] = df['t_4'] == 2000
+    df['t_4_364000'] = df['t_4'] == 364000
+    df['t_4_460000'] = df['t_4'] == 460000
+    df['t_4_430000'] = df['t_4'] == 430000
+    df['t_4_364000'] = df['t_4'] == 364000
     df['notnull'] = pd.np.sum(df.notnull().to_numpy(), axis=1)
     return df
 

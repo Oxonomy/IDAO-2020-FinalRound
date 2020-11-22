@@ -36,8 +36,7 @@ class LinearRegression(Model):
         """
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=c.SEED)
         self.model.fit(x_train, y_train)
-        y_prediction = self.model.predict(x_test)
-        return metrics.mean_squared_error(y_test, y_prediction)
+        return self.score(x_test, y_test)
 
     def score(self, x, y):
         y_prediction = self.predict(x)
