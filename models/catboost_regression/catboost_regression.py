@@ -40,7 +40,7 @@ class CatboostRegressor(Model):
                                        loss_function="RMSE", eval_metric='AUC', rsm = 1,
                                        diffusion_temperature=parameters['diffusion_temperature'],
                                        random_state=c.SEED,
-                                       verbose=1000)
+                                       verbose=0)
 
     def fit_model(self, x, y, test_size=0.2) -> float:
         """

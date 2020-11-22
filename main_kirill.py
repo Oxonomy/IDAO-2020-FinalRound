@@ -2,6 +2,7 @@ import pandas as pd
 from joblib import dump, load
 from catboost import CatBoostRegressor, CatBoostClassifier
 from utils.preprocess import preprocess, reset_averages, add_columns
+from models.catboost_regression.catboost_regression import CatboostRegressor
 import numpy as np
 
 df = pd.read_csv('test.csv', sep=',')
@@ -9,6 +10,8 @@ prediction = df[["card_id"]].copy(deep=True)
 
 df = add_columns(df)
 df = preprocess(df, False)
+model = CatboostRegressor()
+model.load_model()
 model = load('best_catboost.joblib')
 
 
