@@ -4,7 +4,6 @@ from catboost import CatBoostRegressor, CatBoostClassifier
 from utils.preprocess import preprocess, reset_averages, add_columns
 import numpy as np
 
-print("LL")
 df = pd.read_csv('test.csv', sep=',')
 prediction = df[["card_id"]].copy(deep=True)
 

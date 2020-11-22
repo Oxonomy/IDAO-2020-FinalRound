@@ -10,7 +10,8 @@ def preprocess(df: pd.DataFrame, is_train=True):
             columns_dict[c] = df[c].unique()
         df = pd.get_dummies(df, columns=cat_cols)
 
-        columns_order = df.columns
+        columns_order = list(df.columns)
+        columns_order.remove('target')
         dump((columns_dict, columns_order), 'columns_dict.joblib')
     else:
         columns_dict, columns_order = load('columns_dict.joblib')
@@ -18,7 +19,7 @@ def preprocess(df: pd.DataFrame, is_train=True):
             for v in columns_dict[feature]:
                 df[feature + '_' + v] = df[feature] == v
             df = df.drop([feature], axis=1)
-        df=df[columns_order]
+        df = df[columns_order]
     df = df.fillna(0)
     return df
 
