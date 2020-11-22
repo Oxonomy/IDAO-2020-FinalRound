@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split
 
 import config as c
 from pipeline.model import EnsembleModels, Model
+from utils.metrics import roc_auc_score_at_K
+from utils.preprocess import reset_averages
 
 
 class CatboostRegressor(Model):
@@ -49,13 +51,12 @@ class CatboostRegressor(Model):
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=c.SEED)
         self.model.fit(x_train, y_train)
         y_prediction = self.model.predict(x_test)
-        return metrics.mean_squared_error(y_test, y_prediction)
+        return self.score(y_test, y_prediction)
 
     def score(self, x, y):
         """
         Определение точности модели. Шаблон
         :return: rmse
         """
-        
         y_prediction = self.predict(x)
-        return metrics.mean_squared_error(y, y_prediction)
+        return -roc_auc_score_at_K(reset_averages(y_prediction), y, rate=0.1)

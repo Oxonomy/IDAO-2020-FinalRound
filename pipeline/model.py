@@ -183,7 +183,7 @@ class Model:
         self.model = self.__load_model(os.path.join(folder_path, extra_name))
 
     def predict(self, x) -> np.array:
-        return self.model.predict(x).reshape((-1,1))
+        return self.model.predict(x).reshape(-1)
 
     def score_accuracy_classification(self, x, y):
         y_prediction = self.predict(x)
