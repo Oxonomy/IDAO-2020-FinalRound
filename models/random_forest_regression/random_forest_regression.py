@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split
 import config as c
 from pipeline.model import EnsembleModels, Model
 
+from utils.metrics import roc_auc_score_at_K
+from utils.preprocess import reset_averages
 
 class RandomForestRegression(Model):
     default_model_constructor_parameters = {
@@ -31,7 +33,7 @@ class RandomForestRegression(Model):
         self.model = ensemble.RandomForestRegressor(n_estimators=parameters['n_estimators'], criterion=parameters['criterion'],
                                                      max_features=parameters['max_features'], min_samples_split=parameters['min_samples_split'],
                                                      min_samples_leaf=parameters['min_samples_leaf'], min_impurity_decrease=parameters['min_impurity_decrease'],
-                                                     ccp_alpha = parameters['ccp_alpha'] ,random_state=c.SEED)
+                                                     ccp_alpha = parameters['ccp_alpha'] ,random_state=c.SEED, verbose=5)
 
     def fit_model(self, x, y, test_size=0.2) -> float:
         """
@@ -44,10 +46,5 @@ class RandomForestRegression(Model):
         return metrics.mean_squared_error(y_test, y_prediction)
 
     def score(self, x, y):
-        """
-        Определение точности модели. Шаблон
-        :return: rmse
-        """
-        
         y_prediction = self.predict(x)
-        return metrics.mean_squared_error(y, y_prediction)
+        return -roc_auc_score_at_K(reset_averages(y_prediction), y, rate=0.1)

@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split
 import config as c
 from pipeline.model import EnsembleModels, Model
 
+from utils.metrics import roc_auc_score_at_K
+from utils.preprocess import reset_averages
 
 class LinearRegression(Model):
     default_model_constructor_parameters = {
@@ -38,10 +40,5 @@ class LinearRegression(Model):
         return metrics.mean_squared_error(y_test, y_prediction)
 
     def score(self, x, y):
-        """
-        Определение точности модели. Шаблон
-        :return: rmse
-        """
-        
         y_prediction = self.predict(x)
-        return metrics.mean_squared_error(y, y_prediction)
+        return -roc_auc_score_at_K(reset_averages(y_prediction), y, rate=0.1)
