@@ -9,14 +9,16 @@ def preprocess(df: pd.DataFrame, is_train=True):
         for c in cat_cols:
             columns_dict[c] = df[c].unique()
         df = pd.get_dummies(df, columns=cat_cols)
-        dump(columns_dict, 'columns_dict.joblib')
+
+        columns_order = df.columns
+        dump((columns_dict, columns_order), 'columns_dict.joblib')
     else:
-        columns_dict = load('columns_dict.joblib')
+        columns_dict, columns_order = load('columns_dict.joblib')
         for feature in columns_dict.keys():
             for v in columns_dict[feature]:
                 df[feature + '_' + v] = df[feature] == v
             df = df.drop([feature], axis=1)
-
+        df=df[columns_order]
     df = df.fillna(0)
     return df
 
